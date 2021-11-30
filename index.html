@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Bulma!</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <section class="section"  id="app">
+      <div class="container" v-if="loaded">
+        <header>
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="https://bulma.io"><i><strong>Px</strong></i></a>
+
+              <a
+                role="button"
+                class="navbar-burger"
+                aria-label="menu"
+                aria-expanded="false"
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          </nav>
+        </header>
+
+        <section class="main">
+          <!-- Compteurs -->
+          <nav class="level">
+            <div class="level-item has-text-centered">
+              <div class="tags has-addons" title="Rendement total par tour">
+                <span class="tag is-dark">
+                  R <i class="fas fa-dollar-sign"></i></span
+                >
+                <span class="tag is-success">{{ moneyRendement }}</span>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div class="tags has-addons" title="Trésorerie">
+                <span class="tag is-dark">
+                  <i class="fas fa-dollar-sign"></i
+                ></span>
+                <span class="tag is-info">{{ moneyCapital }}</span>
+              </div>
+            </div>
+          </nav>
+
+          <div class="notification is-danger" v-if="alertNotEnoughCash">
+            <button class="delete"></button>
+            Vous n'avez pas assez d'argent pour faire cet achat !
+          </div>
+
+          <!-- Propriétés -->
+          <div class="box" v-for="(item, index) in items">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img
+                    :src="item.img"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <span class="tag is-info" title="Quantité possédée">{{ item.owned }}</span>
+                    <strong>{{ item.name }}</strong>
+                    <br />
+                    {{ item.description }} 
+                    <div class="field is-grouped is-grouped-multiline">
+                      <div class="control">
+                        <div class="tags has-addons" title="Rendement par tour">
+                          <span class="tag is-dark">R <i class="fas fa-dollar-sign"></i></span>
+                          <span class="tag is-success">{{ item.rendement }}</span>
+                        </div>
+                      </div>
+                    
+                      <div class="control">
+                        <div class="tags has-addons" title="Prix d'achat">
+                          <span class="tag is-dark">P <i class="fas fa-dollar-sign"></i></span>
+                          <span class="tag is-warning">{{ item.price }}</span>
+                        </div>
+                      </div>
+
+                      <div class="control">
+                        <form>
+                          <input class="input buy is-small" type="number" value="1" min="1" max="999" title="Quantité à acheter" />
+                          <button class="button is-light is-small" title="Réaliser l'achat"   v-on:click="buy" :data-id="index">Acheter</button>
+                          <button class="button is-danger is-light is-small" v-if="item.owned > 0" title="Réaliser la vente">Vendre</button>
+                        </form>
+                      </div>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </section>
+
+        <footer>
+          <footer class="footer">
+            <div class="content has-text-centered">
+              <p>
+                <strong>Bulma</strong> by
+                <a href="https://jgthms.com">Jeremy Thomas</a>. The source code
+                is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a
+                >. The website content is licensed
+                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+                  >CC BY NC SA 4.0</a
+                >.
+              </p>
+            </div>
+          </footer>
+        </footer>
+      </div>
+      <progress v-else class="progress is-small is-primary" max="100">50%</progress>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
