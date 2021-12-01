@@ -5,14 +5,10 @@ let promiseVersion = new Promise(function (myResolve, myReject) {
   req.open('GET', './datas/version.json');
   req.onload = function () {
     if (req.status == 200) {
-      myResolve(req.response);
+      myResolve(JSON.parse(req.response));
     } else {
       myReject('File not Found');
     }
   };
   req.send();
 });
-
-
-
-

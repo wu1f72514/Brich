@@ -1,4 +1,4 @@
-var app = new Vue({
+/*var app = new Vue({
   el: '#app',
   data: {
     version: null,
@@ -61,7 +61,8 @@ var app = new Vue({
       // recupération de la version
       promiseVersion.then(
         function (res) {
-          console.log('success', res);
+          this.version = res;
+          updateHeadTitle(this.version);
         },
         function (error) {
           console.log('error', res);
@@ -110,6 +111,24 @@ var app = new Vue({
         this.playerDatas.moneyCapital += total_amount;
         this.playerDatas.moneyRendement -= this.items[ind].rendement * qty;
       }
+    },
+  },
+});*/
+new Vue({
+  // state
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  // view
+  template: `
+    <div>{{ count }}</div>
+  `,
+  // actions
+  methods: {
+    increment() {
+      this.count++;
     },
   },
 });

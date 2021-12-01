@@ -1,3 +1,4 @@
 let updateHeadTitle = (version) => {
-  document.title(version.name + ' ' + version.version);
+  console.log(version);
+  document.title = version.name + ' ' + version.version;
 };
