@@ -31,23 +31,42 @@ var app = new Vue({
   },
   methods: {
     buy(e) {
-      let ind = e.target.getAttribute('data-id');
-      // alert(this.items[ind].name);
-      // retirer montant achat
-      let qty = e.target.parentNode.getElementsByClassName('buy')[0].value;
+      this.impactOwned(
+        'buy',
+        e.target.parentNode.getElementsByClassName('buy')[0].value * 1,
+        e.target.getAttribute('data-id')
+      );
+    },
+    sell(e) {
+      this.impactOwned(
+        'sell',
+        e.target.parentNode.getElementsByClassName('buy')[0].value * 1,
+        e.target.getAttribute('data-id')
+      );
+    },
+    impactOwned(action, qty, ind) {
+      // montant achat
       let total_amount = qty * this.items[ind].price;
-      if (total_amount > this.moneyCapital) {
+      if (action === 'buy' && total_amount > this.moneyCapital) {
         this.alertNotEnoughCash = true;
+        setTimeout(
+          function () {
+            this.alertNotEnoughCash = false;
+          }.bind(this),
+          5000
+        );
         return;
       }
-      // setTimeout(
-      //   function () {
-      //     this.alertNotEnoughCash = false;
-      //   }.bind(this),
-      //   5000
-      // );
-
-      this.moneyCapital -= total_amount;
+      // rendement + capital + owned
+      if (action === 'buy') {
+        this.items[ind].owned += qty;
+        this.moneyCapital -= total_amount;
+        this.moneyRendement += this.items[ind].rendement * qty;
+      } else if (action === 'sell') {
+        this.items[ind].owned -= qty;
+        this.moneyCapital += total_amount;
+        this.moneyRendement -= this.items[ind].rendement * qty;
+      }
     },
   },
 });

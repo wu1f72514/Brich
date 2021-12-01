@@ -100,9 +100,10 @@
                       <div class="control">
                         <form>
                           <input class="input buy is-small" type="number" value="1" min="1" max="999" title="Quantité à acheter" />
-                          <button class="button is-light is-small" title="Réaliser l'achat"   v-on:click="buy" :data-id="index">Acheter</button>
-                          <button class="button is-danger is-light is-small" v-if="item.owned > 0" title="Réaliser la vente">Vendre</button>
                         </form>
+                        <button class="button is-light is-small" title="Réaliser l'achat" v-on:click="buy" :data-id="index">Acheter</button>
+                        <button class="button is-danger is-light is-small" v-if="item.owned > 0" title="Réaliser la vente" v-on:click="sell" :data-id="index">Vendre</button>
+                        
                       </div>
                     </div>
                   </p>
