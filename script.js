@@ -1,6 +1,7 @@
 var app = new Vue({
   el: '#app',
   data: {
+    version: null,
     page: {
       loaded: false,
       msg: {
@@ -57,6 +58,17 @@ var app = new Vue({
   },
   mounted: function () {
     this.$nextTick(function () {
+      // recupération de la version
+      promiseVersion.then(
+        function (res) {
+          console.log('success', res);
+        },
+        function (error) {
+          console.log('error', res);
+        }
+      );
+
+      //updateHeadTitle()
       this.page.loaded = true;
     });
   },
