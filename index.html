@@ -18,7 +18,7 @@
   </head>
   <body>
     <section class="section"  id="app">
-      <div class="container" v-if="loaded">
+      <div class="container" v-if="page.loaded">
         <header>
           <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
@@ -46,7 +46,7 @@
                 <span class="tag is-dark">
                   R <i class="fas fa-dollar-sign"></i></span
                 >
-                <span class="tag is-success">{{ moneyRendement }}</span>
+                <span class="tag is-success">{{ playerDatas.moneyRendement }}</span>
               </div>
             </div>
             <div class="level-item has-text-centered">
@@ -54,18 +54,18 @@
                 <span class="tag is-dark">
                   <i class="fas fa-dollar-sign"></i
                 ></span>
-                <span class="tag is-info">{{ moneyCapital }}</span>
+                <span class="tag is-info">{{ playerDatas.moneyCapital }}</span>
               </div>
             </div>
           </nav>
 
-          <div class="notification is-danger" v-if="alertNotEnoughCash">
+          <div class="notification is-danger" v-if="page.msg.alert.notEnoughCash">
             <button class="delete"></button>
             Vous n'avez pas assez d'argent pour faire cet achat !
           </div>
 
           <!-- Propriétés -->
-          <div class="box" v-for="(item, index) in items">
+          <div class="box" v-for="(item, index) in playerDatas.items">
             <article class="media">
               <div class="media-left">
                 <figure class="image is-64x64">
@@ -100,9 +100,10 @@
                       <div class="control">
                         <form>
                           <input class="input buy is-small" type="number" value="1" min="1" max="999" title="Quantité à acheter" />
-                          <button class="button is-light is-small" title="Réaliser l'achat"   v-on:click="buy" :data-id="index">Acheter</button>
-                          <button class="button is-danger is-light is-small" v-if="item.owned > 0" title="Réaliser la vente">Vendre</button>
                         </form>
+                        <button class="button is-light is-small" title="Réaliser l'achat" v-on:click="buy" :data-id="index">Acheter</button>
+                        <button class="button is-danger is-light is-small" v-if="item.owned > 0" title="Réaliser la vente" v-on:click="sell" :data-id="index">Vendre</button>
+                        
                       </div>
                     </div>
                   </p>

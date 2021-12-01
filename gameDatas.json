@@ -1,0 +1,13 @@
+{
+  "init": {
+    moneyCapital: 5000,
+    moneyRendement: 0,
+    rendementAuto: 5
+  },
+  "mobile": "897654321",
+  "age": 45,
+  "address": {
+  "city": "New York",
+  "country": "USA"
+  }
+  }
